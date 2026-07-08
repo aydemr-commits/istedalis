@@ -26,22 +26,20 @@ RUN apk add --no-cache \
         nginx \
         oniguruma-dev \
         postgresql-dev \
-    && apk add --no-cache --virtual .php-build-deps $PHPIZE_DEPS \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && apk add --no-cache --virtual .php-build-deps $PHPIZE_DEPS
+
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         bcmath \
-        dom \
         gd \
         intl \
         mbstring \
         opcache \
         pdo_pgsql \
-        simplexml \
-        xml \
-        xmlreader \
-        xmlwriter \
         zip \
     && apk del .php-build-deps
+
+RUN php -r '$required = ["bcmath", "dom", "gd", "intl", "mbstring", "opcache", "pdo_pgsql", "simplexml", "xml", "xmlreader", "xmlwriter", "zip"]; foreach ($required as $extension) { if (! extension_loaded($extension)) { fwrite(STDERR, "Missing PHP extension: {$extension}\n"); exit(1); } }'
 
 COPY --from=vendor /app /var/www/html
 COPY docker/nginx.conf /etc/nginx/http.d/default.conf

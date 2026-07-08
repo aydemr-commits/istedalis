@@ -26,8 +26,6 @@ php artisan optimize:clear || true
 php artisan config:cache
 php artisan route:cache
 
-php -r 'require "vendor/autoload.php"; $app = require "bootstrap/app.php"; $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class); $request = Illuminate\Http\Request::create("/", "GET"); $response = $kernel->handle($request); if ($response->getStatusCode() >= 500) { fwrite(STDERR, $response->getContent().PHP_EOL); exit(1); } $kernel->terminate($request, $response);'
-
 if [ "${RUN_MIGRATIONS:-true}" != "false" ]; then
     php artisan migrate --force || echo "Database migration could not run during startup."
 fi
