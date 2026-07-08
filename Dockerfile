@@ -39,7 +39,8 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
         zip \
     && apk del .php-build-deps
 
-RUN php -r '$required = ["bcmath", "dom", "gd", "intl", "mbstring", "opcache", "pdo_pgsql", "simplexml", "xml", "xmlreader", "xmlwriter", "zip"]; foreach ($required as $extension) { if (! extension_loaded($extension)) { fwrite(STDERR, "Missing PHP extension: {$extension}\n"); exit(1); } }'
+RUN php -m \
+    && php -r '$required = ["bcmath", "dom", "gd", "intl", "mbstring", "Zend OPcache", "pdo_pgsql", "SimpleXML", "xml", "xmlreader", "xmlwriter", "zip"]; foreach ($required as $extension) { if (! extension_loaded($extension)) { fwrite(STDERR, "Missing PHP extension: {$extension}\n"); exit(1); } }'
 
 COPY --from=vendor /app /var/www/html
 COPY docker/nginx.conf /etc/nginx/http.d/default.conf
