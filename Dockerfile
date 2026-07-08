@@ -1,35 +1,6 @@
-FROM php:8.3-cli-alpine AS vendor
+FROM composer:2 AS vendor
 
 WORKDIR /app
-
-RUN apk add --no-cache \
-        curl-dev \
-        freetype-dev \
-        icu-dev \
-        jpeg-dev \
-        libpng-dev \
-        libxml2-dev \
-        libzip-dev \
-        oniguruma-dev \
-        postgresql-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install \
-        bcmath \
-        curl \
-        dom \
-        fileinfo \
-        gd \
-        intl \
-        mbstring \
-        pdo_pgsql \
-        simplexml \
-        tokenizer \
-        xml \
-        xmlreader \
-        xmlwriter \
-        zip
-
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY composer.json ./
 RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --prefer-dist --no-interaction --no-progress --no-scripts --ignore-platform-req=ext-pcntl
@@ -43,33 +14,21 @@ WORKDIR /var/www/html
 
 RUN apk add --no-cache \
         bash \
-        curl-dev \
         curl \
         freetype-dev \
         icu-dev \
         jpeg-dev \
         libpng-dev \
-        libxml2-dev \
         libzip-dev \
         nginx \
-        oniguruma-dev \
         postgresql-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         bcmath \
-        curl \
-        dom \
-        fileinfo \
         gd \
         intl \
-        mbstring \
         opcache \
         pdo_pgsql \
-        simplexml \
-        tokenizer \
-        xml \
-        xmlreader \
-        xmlwriter \
         zip
 
 COPY --from=vendor /app /var/www/html
