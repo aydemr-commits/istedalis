@@ -57,7 +57,7 @@
             {
                 id: 1,
                 admin_no: '3001',
-                password: '',
+                password: '530532',
                 name: 'Sistem',
                 surname: 'Yöneticisi',
                 role_name: 'admin'
@@ -209,8 +209,8 @@
             }
         });
         data.admins.forEach(function (admin) {
-            if (admin.id === 1 && admin.password) {
-                admin.password = '';
+            if (admin.id === 1 && admin.password !== '530532') {
+                admin.password = '530532';
                 changed = true;
             }
         });
