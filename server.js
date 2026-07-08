@@ -1,5 +1,5 @@
 import { createServer } from 'node:http';
-import { createReadStream, statSync } from 'node:fs';
+import { createReadStream, existsSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -42,6 +42,10 @@ createServer((request, response) => {
   streamFile(filePath, response);
 }).listen(port, () => {
   console.log(`istedalis is running on port ${port}`);
+  console.log(`server directory: ${__dirname}`);
+  console.log(`working directory: ${process.cwd()}`);
+  console.log(`index.html present: ${existsSync(path.join(__dirname, 'index.html'))}`);
+  console.log(`visible files: ${listVisibleFiles().join(', ')}`);
 });
 
 function resolvePublicPath(pathname) {
@@ -77,7 +81,7 @@ function streamFile(filePath, response) {
     createReadStream(filePath).pipe(response);
   } catch (error) {
     response.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-    response.end('Not found');
+    response.end(`Not found: ${path.basename(filePath)}`);
   }
 }
 
@@ -85,4 +89,14 @@ function setSecurityHeaders(response) {
   response.setHeader('X-Frame-Options', 'DENY');
   response.setHeader('X-Content-Type-Options', 'nosniff');
   response.setHeader('Referrer-Policy', 'same-origin');
+}
+
+function listVisibleFiles() {
+  try {
+    return readdirSync(__dirname)
+      .filter((name) => !name.startsWith('.'))
+      .slice(0, 40);
+  } catch (error) {
+    return ['unable-to-read-directory'];
+  }
 }
