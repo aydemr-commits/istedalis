@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Yedekleme</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="backup">
+    <header class="topbar">
+        <div class="brand">
+            <img class="brand-mark" src="assets/iste-amblem.png" alt="İskenderun Teknik Üniversitesi amblemi">
+            <div>
+                <strong>İskenderun Teknik Üniversitesi</strong>
+                <span>Denizcilik Teknolojileri MYO</span>
+                <small>Dalış Kayıt Sistemi</small>
+            </div>
+        </div>
+        <nav class="top-actions">
+            <a href="staff-dashboard.html">Staff paneli</a>
+            <a href="index.html" data-logout>Çıkış</a>
+        </nav>
+    </header>
+
+    <main class="shell">
+        <section class="page-heading">
+            <div>
+                <p class="eyebrow">Staff işlemi</p>
+                <h1>Yedekleme</h1>
+            </div>
+        </section>
+
+        <section class="backup-grid">
+            <button class="panel backup-card" type="button" id="downloadJson">
+                <strong>Tüm verileri JSON olarak indir</strong>
+                <span>Öğrenci, staff ve dalış kayıtları</span>
+            </button>
+            <button class="panel backup-card" type="button" id="downloadAllCsv">
+                <strong>Tüm verileri CSV olarak indir</strong>
+                <span>Tek birleşik CSV dosyası</span>
+            </button>
+            <button class="panel backup-card" type="button" id="downloadStudentsCsv">
+                <strong>Öğrenci listesi CSV indir</strong>
+                <span>Öğrenci temel bilgileri</span>
+            </button>
+            <button class="panel backup-card" type="button" id="downloadDivesCsv">
+                <strong>Dalış kayıtları CSV indir</strong>
+                <span>Tüm dalış kayıtları</span>
+            </button>
+        </section>
+
+        <section class="panel">
+            <h2>Veri durumu</h2>
+            <p id="backupSummary" class="muted"></p>
+            <button class="btn ghost" type="button" data-reset-data>Verileri sıfırla</button>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

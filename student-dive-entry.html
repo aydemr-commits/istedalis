@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dalış Kaydı Girişi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="student-dive-entry">
+    <header class="topbar">
+        <div class="brand">
+            <img class="brand-mark" src="assets/iste-amblem.png" alt="İskenderun Teknik Üniversitesi amblemi">
+            <div>
+                <strong>İskenderun Teknik Üniversitesi</strong>
+                <span>Denizcilik Teknolojileri MYO</span>
+                <small>Dalış Kayıt Sistemi</small>
+            </div>
+        </div>
+        <nav class="top-actions">
+            <a href="student-dashboard.html">Panele dön</a>
+            <a href="index.html" data-logout>Çıkış</a>
+        </nav>
+    </header>
+
+    <main class="shell">
+        <section class="page-heading">
+            <div>
+                <p class="eyebrow">Öğrenci işlemi</p>
+                <h1>Yeni dalış kaydı</h1>
+                <p class="muted">Gönderilen kayıt dalış amiri onayına düşer; onaylandıktan sonra resmi kayıtlara ve rapora dahil edilir.</p>
+            </div>
+        </section>
+
+        <section class="panel">
+            <form id="diveEntryForm" class="form-grid wide">
+                <label>
+                    <span>Öğrenci no</span>
+                    <input id="entryStudentNo" disabled>
+                </label>
+                <label>
+                    <span>Ad soyad</span>
+                    <input id="entryStudentName" disabled>
+                </label>
+                <label>
+                    <span>Dalış tarihi</span>
+                    <input name="dive_date" type="date" required>
+                </label>
+                <label>
+                    <span>Dalış yeri</span>
+                    <input name="location" required placeholder="İskenderun Körfezi">
+                </label>
+                <label>
+                    <span>Dalış tipi</span>
+                    <select name="dive_type" required>
+                        <option>Eğitim Dalışı</option>
+                        <option>Kontrol Dalışı</option>
+                        <option>Gözlem Dalışı</option>
+                        <option>Navigasyon Dalışı</option>
+                        <option>Ekipman Kontrol Dalışı</option>
+                    </select>
+                </label>
+                <label>
+                    <span>Amaç / görev</span>
+                    <select name="purpose">
+                        <option>Temel beceri uygulamaları</option>
+                        <option>Ekipman kontrolü</option>
+                        <option>Deniz tabanı gözlemi</option>
+                        <option>Navigasyon çalışması</option>
+                        <option>Emniyet prosedürü uygulaması</option>
+                    </select>
+                </label>
+                <label>
+                    <span>Başlama saati</span>
+                    <input name="start_time" type="time">
+                </label>
+                <label>
+                    <span>Bitiş saati</span>
+                    <input name="end_time" type="time">
+                </label>
+                <label>
+                    <span>Dalış süresi, dakika</span>
+                    <input name="duration_minutes" type="number" min="1" required placeholder="40">
+                </label>
+                <label>
+                    <span>Maksimum derinlik, metre</span>
+                    <input name="max_depth" type="number" min="0" step="0.1" placeholder="12.5">
+                </label>
+                <label>
+                    <span>Su sıcaklığı</span>
+                    <input name="water_temperature" type="number" step="0.1" placeholder="22">
+                </label>
+                <label>
+                    <span>Görüş mesafesi</span>
+                    <input name="visibility" type="number" step="0.1" placeholder="8">
+                </label>
+                <label>
+                    <span>Hava / deniz durumu</span>
+                    <input name="weather" placeholder="Sakin">
+                </label>
+                <label>
+                    <span>Ekipman</span>
+                    <select name="equipment">
+                        <option>Maske, palet, regülatör, BCD, tüp</option>
+                        <option>Standart dalış ekipmanı</option>
+                        <option>Standart dalış ekipmanı, pusula</option>
+                        <option>Maske, palet, regülatör, BCD, tüp, pusula</option>
+                        <option>Maske, palet, regülatör, BCD, tüp, fener</option>
+                    </select>
+                </label>
+                <label>
+                    <span>Başlangıç tüp basıncı</span>
+                    <input name="start_pressure" type="number" min="0" placeholder="200">
+                </label>
+                <label>
+                    <span>Bitiş tüp basıncı</span>
+                    <input name="end_pressure" type="number" min="0" placeholder="80">
+                </label>
+                <label>
+                    <span>Dalış amiri adı soyadı / unvanı</span>
+                    <input name="supervisor_name" required placeholder="Dalış amiri bilgisi">
+                </label>
+                <label class="span-2">
+                    <span>Açıklama / bulgular</span>
+                    <textarea name="notes" rows="4" placeholder="Gözlem ve bulgular"></textarea>
+                </label>
+                <div class="form-actions span-2">
+                    <a class="btn ghost" href="student-dashboard.html">Vazgeç</a>
+                    <button class="btn primary" type="submit">Onaya Gönder</button>
+                </div>
+                <p id="entryMessage" class="form-message span-2" aria-live="polite"></p>
+            </form>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

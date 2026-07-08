@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Öğrenci Paneli</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="student-dashboard">
+    <header class="topbar">
+        <div class="brand">
+            <img class="brand-mark" src="assets/iste-amblem.png" alt="İskenderun Teknik Üniversitesi amblemi">
+            <div>
+                <strong>İskenderun Teknik Üniversitesi</strong>
+                <span>Denizcilik Teknolojileri MYO</span>
+                <small>Dalış Kayıt Sistemi</small>
+            </div>
+        </div>
+        <nav class="top-actions">
+            <a href="student-dive-entry.html">Yeni kayıt</a>
+            <a href="student-report.html">Rapor</a>
+            <a href="index.html" data-logout>Çıkış</a>
+        </nav>
+    </header>
+
+    <main class="shell">
+        <section class="page-heading">
+            <div>
+                <p class="eyebrow">Öğrenci paneli</p>
+                <h1 id="studentName">Öğrenci</h1>
+                <p id="studentIdentity" class="muted"></p>
+            </div>
+            <a class="btn primary" href="student-dive-entry.html">Yeni Dalış Kaydı</a>
+        </section>
+
+        <section class="metric-grid">
+            <article class="metric"><span>Onaylı dalış sayısı</span><strong id="totalDiveCount">0</strong></article>
+            <article class="metric"><span>Onaylı dalış süresi</span><strong id="totalDiveDuration">0 dk</strong></article>
+            <article class="metric"><span>Onaylı maksimum derinlik</span><strong id="maxDepth">0 m</strong></article>
+            <article class="metric"><span>Son onaylı dalış</span><strong id="lastDiveDate">-</strong></article>
+        </section>
+
+        <section class="panel" id="studentMessagesPanel">
+            <div class="section-title">
+                <h2>Mesajlar</h2>
+            </div>
+            <div id="studentMessages" class="message-list"></div>
+        </section>
+
+        <section class="panel">
+            <div class="section-title">
+                <h2>Dalış kayıtlarım</h2>
+                <span class="muted">LocalStorage kayıtları</span>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tarih</th>
+                            <th>Dalış yeri</th>
+                            <th>Dalış tipi</th>
+                            <th>Süre</th>
+                            <th>Maks. derinlik</th>
+                            <th>Dalış amiri</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentDiveRows"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

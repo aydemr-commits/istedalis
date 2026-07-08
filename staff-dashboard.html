@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Staff Paneli</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="staff-dashboard">
+    <header class="topbar">
+        <div class="brand">
+            <img class="brand-mark" src="assets/iste-amblem.png" alt="İskenderun Teknik Üniversitesi amblemi">
+            <div>
+                <strong>İskenderun Teknik Üniversitesi</strong>
+                <span>Denizcilik Teknolojileri MYO</span>
+                <small>Dalış Kayıt Sistemi</small>
+            </div>
+        </div>
+        <nav class="top-actions">
+            <a href="#pendingApprovals">Onaylanacak Dalışlar</a>
+            <a href="backup.html">Yedekleme</a>
+            <a href="index.html" data-logout>Çıkış</a>
+        </nav>
+    </header>
+
+    <main class="shell">
+        <section class="page-heading">
+            <div>
+                <p class="eyebrow">Öğretim Elemanı / Dalış Amiri</p>
+                <h1>Staff paneli</h1>
+                <p id="staffIdentity" class="muted"></p>
+            </div>
+            <div class="heading-actions">
+                <a class="btn primary" href="#pendingApprovals">Onaylanacak Dalışlar</a>
+                <a class="btn secondary" href="backup.html">Yedekleme</a>
+            </div>
+        </section>
+
+        <section class="metric-grid">
+            <article class="metric"><span>Toplam öğrenci</span><strong id="staffStudentCount">0</strong></article>
+            <article class="metric"><span>Onaylı dalış kaydı</span><strong id="staffDiveCount">0</strong></article>
+            <article class="metric"><span>Onaylı dalış süresi</span><strong id="staffDuration">0 dk</strong></article>
+            <article class="metric"><span>Onay bekleyen</span><strong id="staffPendingCount">0</strong></article>
+        </section>
+
+        <section class="panel" id="pendingApprovals">
+            <div class="section-title">
+                <h2>Onaylanacak Dalışlar</h2>
+                <span class="muted">Öğrencilerden gelen ve henüz kayıt altına alınmamış başvurular</span>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Öğrenci</th>
+                            <th>Tarih</th>
+                            <th>Yer</th>
+                            <th>Tip</th>
+                            <th>Süre</th>
+                            <th>Dalış amiri</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pendingApprovalRows"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-title">
+                <h2>Öğrenciler</h2>
+                <span class="muted">Tüm öğrenci listesi</span>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Öğrenci no</th>
+                            <th>Ad soyad</th>
+                            <th>Program</th>
+                            <th>TC no</th>
+                            <th>Dalış sayısı</th>
+                            <th>Toplam süre</th>
+                            <th>Rapor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="staffStudentRows"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-title">
+                <h2>Tüm dalış kayıtları</h2>
+                <span class="muted">Filtrelenebilir liste</span>
+            </div>
+            <form id="staffFilterForm" class="filter-grid">
+                <input id="filterStudentNo" placeholder="Öğrenci no">
+                <input id="filterName" placeholder="Ad soyad">
+                <input id="filterDateFrom" type="date" aria-label="Başlangıç tarihi">
+                <input id="filterDateTo" type="date" aria-label="Bitiş tarihi">
+                <input id="filterLocation" placeholder="Dalış yeri">
+                <input id="filterType" placeholder="Dalış tipi">
+                <button class="btn secondary" type="submit">Filtrele</button>
+                <button class="btn ghost" type="button" id="clearFilters">Temizle</button>
+            </form>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Öğrenci</th>
+                            <th>Tarih</th>
+                            <th>Yer</th>
+                            <th>Tip</th>
+                            <th>Süre</th>
+                            <th>Derinlik</th>
+                            <th>Dalış amiri</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody id="staffDiveRows"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-title">
+                <h2>Öğrenci bazlı raporlama</h2>
+                <span class="muted">Dalışları seçip yazdırılabilir rapor oluşturun</span>
+            </div>
+            <form id="reportSelectForm" class="report-select">
+                <select id="reportStudentSelect" required></select>
+                <div id="reportDiveList" class="checkbox-list"></div>
+                <button class="btn primary" type="submit">PDF Rapor Görünümü Aç</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
