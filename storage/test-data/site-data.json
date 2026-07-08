@@ -1,0 +1,16 @@
+{
+  "students": [],
+  "staff": [],
+  "admins": [
+    {
+      "id": 1,
+      "admin_no": "3001",
+      "password": "530532",
+      "name": "Sistem",
+      "surname": "Yonetici",
+      "role_name": "admin",
+      "approval_status": "approved"
+    }
+  ],
+  "dives": []
+}

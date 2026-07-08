@@ -26,7 +26,7 @@ Artisan::command('admin:ensure {--force : Uretim ortaminda admin hesabi olusturm
     $staff = Staff::updateOrCreate(
         ['staff_no' => config('backup.admin.staff_no', '3001')],
         [
-            'password' => $password ?: 'yonetici123',
+            'password' => $password ?: '',
             'name' => config('backup.admin.name', 'Sistem'),
             'surname' => config('backup.admin.surname', 'Yoneticisi'),
             'role_name' => 'admin',

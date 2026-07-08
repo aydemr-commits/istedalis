@@ -18,6 +18,9 @@
                     </div>
                     <button class="btn btn-iste w-100">Giris Yap</button>
                 </form>
+                <div class="text-center mt-3">
+                    <a href="{{ route('student.register') }}">iste.edu.tr e-posta ile ogrenci kaydi olustur</a>
+                </div>
             </div>
         </div>
     </div>

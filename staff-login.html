@@ -36,6 +36,19 @@
                 <p id="loginMessage" class="form-message" aria-live="polite"></p>
             </form>
         </section>
+        <section class="panel auth-panel">
+            <p class="eyebrow">Yeni kayit</p>
+            <h1>Dalis amiri kaydi</h1>
+            <form id="staffRegisterForm" class="form-grid">
+                <label><span>Kurum no</span><input name="staff_no" required></label>
+                <label><span>iste.edu.tr e-posta</span><input name="email" type="email" required placeholder="ad.soyad@iste.edu.tr"></label>
+                <label><span>Ad</span><input name="name" required></label>
+                <label><span>Soyad</span><input name="surname" required></label>
+                <label><span>Sifre</span><input name="password" type="password" minlength="6" required></label>
+                <button class="btn secondary full" type="submit">Kayit Olustur</button>
+                <p id="registerMessage" class="form-message" aria-live="polite"></p>
+            </form>
+        </section>
     </main>
 
     <script src="app.js"></script>

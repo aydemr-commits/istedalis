@@ -64,10 +64,15 @@
                 <label>
                     <span>Program</span>
                     <select name="program" required>
-                        <option>Sualtı Teknolojisi</option>
-                        <option>Deniz ve Liman İşletmeciliği</option>
-                        <option>Gemi Makineleri İşletme</option>
-                        <option>Deniz Ulaştırma ve İşletme</option>
+                        <option>Su Altı Teknolojisi</option>
+                        <option>Sualtı Kaynak Teknolojisi</option>
+                    </select>
+                </label>
+                <label>
+                    <span>Sinif</span>
+                    <select name="class_name" required>
+                        <option>1. Sinif</option>
+                        <option>2. Sinif</option>
                     </select>
                 </label>
                 <label>
@@ -111,7 +116,11 @@
                     <span>Soyad</span>
                     <input name="surname" required placeholder="Yıldız">
                 </label>
-                <label class="span-2">
+                <label>
+                    <span>E-posta</span>
+                    <input name="email" type="email" required placeholder="ad.soyad@iste.edu.tr">
+                </label>
+                <label>
                     <span>Ekran rolü</span>
                     <select name="display_role" required>
                         <option>Öğretim Elemanı</option>
@@ -140,6 +149,8 @@
                             <th>Program</th>
                             <th>TC no</th>
                             <th>E-posta</th>
+                            <th>Durum</th>
+                            <th>Islem</th>
                         </tr>
                     </thead>
                     <tbody id="adminStudentRows"></tbody>
@@ -159,6 +170,9 @@
                             <th>Kurum no</th>
                             <th>Ad soyad</th>
                             <th>Rol</th>
+                            <th>E-posta</th>
+                            <th>Durum</th>
+                            <th>Islem</th>
                         </tr>
                     </thead>
                     <tbody id="adminStaffRows"></tbody>

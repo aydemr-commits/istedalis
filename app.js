@@ -9,154 +9,21 @@
     const REPORT_ABOUT_TEXT = 'Bu doküman, İskenderun Teknik Üniversitesi Denizcilik Teknolojileri MYO dalış kayıt sisteminde onaylanan dalış kayıtlarının öğrenci bazında raporlanması için hazırlanmıştır. Rapor; kapak, doküman bilgisi, dalış özeti ve dalış amiri onay alanlarını içerir. Çift taraflı yazdırma için sayfa düzeni ön ve arka yüzlerde sayfa numarası alt bilgisiyle hazırlanmıştır.';
 
     const sampleData = {
-        students: [
-            {
-                id: 1,
-                student_no: '2024001',
-                password: '',
-                name: 'Ahmet',
-                surname: 'Yılmaz',
-                program: 'Sualtı Teknolojisi',
-                tc_no: '10000000001',
-                phone: '0326 000 00 01',
-                email: 'ahmet.yilmaz@iste.edu.tr'
-            },
-            {
-                id: 2,
-                student_no: '2024002',
-                password: '',
-                name: 'Mehmet',
-                surname: 'Demir',
-                program: 'Sualtı Teknolojisi',
-                tc_no: '10000000002',
-                phone: '0326 000 00 02',
-                email: 'mehmet.demir@iste.edu.tr'
-            }
-        ],
-        staff: [
-            {
-                id: 1,
-                staff_no: '1001',
-                password: '',
-                name: 'Öğretim',
-                surname: 'Elemanı',
-                role_name: 'staff',
-                display_role: 'Öğretim Elemanı'
-            },
-            {
-                id: 2,
-                staff_no: '2001',
-                password: '',
-                name: 'Dalış',
-                surname: 'Amiri',
-                role_name: 'staff',
-                display_role: 'Dalış Amiri'
-            }
-        ],
+        students: [],
+        staff: [],
         admins: [
             {
                 id: 1,
                 admin_no: '3001',
-                password: '530532',
+                password: '',
+                password_hash: 'c9b018966de06d7ac7a5aba21cd4f14b096aa0697ea97b3e6da73fcc5fb80d10',
                 name: 'Sistem',
-                surname: 'Yöneticisi',
-                role_name: 'admin'
+                surname: 'Yonetici',
+                role_name: 'admin',
+                approval_status: 'approved'
             }
         ],
-        dives: [
-            {
-                id: 1,
-                student_id: 1,
-                dive_date: '2026-03-12',
-                location: 'İskenderun Körfezi',
-                dive_type: 'Eğitim Dalışı',
-                purpose: 'Temel beceri uygulamaları',
-                start_time: '10:00',
-                end_time: '10:42',
-                duration_minutes: 42,
-                max_depth: 12.5,
-                water_temperature: 22.5,
-                visibility: 8,
-                weather: 'Sakin',
-                equipment: 'Maske, palet, regülatör, BCD, tüp',
-                start_pressure: 200,
-                end_pressure: 80,
-                supervisor_name: 'Dalış Amiri',
-                notes: 'Temel beceriler planlanan şekilde tamamlandı.',
-                approval_status: 'approved',
-                approved_by_staff_id: 2,
-                approved_at: '2026-03-12'
-            },
-            {
-                id: 2,
-                student_id: 1,
-                dive_date: '2026-04-05',
-                location: 'Arsuz',
-                dive_type: 'Kontrol Dalışı',
-                purpose: 'Ekipman kontrolü',
-                start_time: '11:10',
-                end_time: '11:46',
-                duration_minutes: 36,
-                max_depth: 10,
-                water_temperature: 21,
-                visibility: 7,
-                weather: 'Az dalgalı',
-                equipment: 'Standart dalış ekipmanı',
-                start_pressure: 210,
-                end_pressure: 95,
-                supervisor_name: 'Öğretim Elemanı',
-                notes: 'Ekipman kontrol listesi tamamlandı.',
-                approval_status: 'approved',
-                approved_by_staff_id: 1,
-                approved_at: '2026-04-05'
-            },
-            {
-                id: 3,
-                student_id: 2,
-                dive_date: '2026-03-20',
-                location: 'Payas',
-                dive_type: 'Gözlem Dalışı',
-                purpose: 'Deniz tabanı gözlemi',
-                start_time: '09:30',
-                end_time: '10:18',
-                duration_minutes: 48,
-                max_depth: 16,
-                water_temperature: 20.5,
-                visibility: 6,
-                weather: 'Parçalı bulutlu',
-                equipment: 'Maske, palet, regülatör, BCD, tüp, pusula',
-                start_pressure: 200,
-                end_pressure: 70,
-                supervisor_name: 'Dalış Amiri',
-                notes: 'Görüş mesafesi orta seviyedeydi.',
-                approval_status: 'approved',
-                approved_by_staff_id: 2,
-                approved_at: '2026-03-20'
-            },
-            {
-                id: 4,
-                student_id: 2,
-                dive_date: '2026-05-08',
-                location: 'İskenderun Marina',
-                dive_type: 'Eğitim Dalışı',
-                purpose: 'Navigasyon çalışması',
-                start_time: '14:00',
-                end_time: '14:40',
-                duration_minutes: 40,
-                max_depth: 14.2,
-                water_temperature: 23,
-                visibility: 9,
-                weather: 'Sakin',
-                equipment: 'Standart dalış ekipmanı, pusula',
-                start_pressure: 205,
-                end_pressure: 85,
-                supervisor_name: 'Öğretim Elemanı',
-                notes: 'Navigasyon rotası başarıyla izlendi.',
-                approval_status: 'approved',
-                approved_by_staff_id: 1,
-                approved_at: '2026-05-08'
-            }
-        ]
+        dives: []
     };
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -176,14 +43,19 @@
     });
 
     function ensureData(forceReset) {
-        if (forceReset || !localStorage.getItem(STORAGE_KEY)) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(sampleData));
+        if (forceReset) {
+            saveData(sampleData);
+            return;
+        }
+
+        if (!readStoredData()) {
+            saveData(sampleData);
         }
     }
 
     function getData() {
         ensureData(false);
-        const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        const data = JSON.parse(readStoredData());
         if (normalizeData(data)) {
             saveData(data);
         }
@@ -191,26 +63,61 @@
     }
 
     function saveData(data) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        const serialized = JSON.stringify(data);
+        localStorage.setItem(STORAGE_KEY, serialized);
+
+        const request = new XMLHttpRequest();
+        request.open('PUT', '/api/data', false);
+        request.setRequestHeader('Content-Type', 'application/json');
+        try {
+            request.send(serialized);
+        } catch (error) {
+            localStorage.setItem(STORAGE_KEY, serialized);
+        }
+    }
+
+    function readStoredData() {
+        const request = new XMLHttpRequest();
+        request.open('GET', '/api/data', false);
+        try {
+            request.send();
+            if (request.status >= 200 && request.status < 300 && request.responseText) {
+                localStorage.setItem(STORAGE_KEY, request.responseText);
+                return request.responseText;
+            }
+        } catch (error) {
+            return localStorage.getItem(STORAGE_KEY);
+        }
+
+        return localStorage.getItem(STORAGE_KEY);
     }
 
     function normalizeData(data) {
         let changed = false;
         data.students.forEach(function (student) {
-            if ((student.id === 1 || student.id === 2) && student.password) {
-                student.password = '';
+            if (!student.approval_status) {
+                student.approval_status = 'approved';
+                changed = true;
+            }
+            if (student.class_name === undefined) {
+                student.class_name = '';
                 changed = true;
             }
         });
         data.staff.forEach(function (staff) {
-            if ((staff.id === 1 || staff.id === 2) && staff.password) {
-                staff.password = '';
+            if (!staff.approval_status) {
+                staff.approval_status = 'approved';
+                changed = true;
+            }
+            if (staff.email === undefined) {
+                staff.email = '';
                 changed = true;
             }
         });
         data.admins.forEach(function (admin) {
-            if (admin.id === 1 && admin.password !== '530532') {
-                admin.password = '530532';
+            if (admin.id === 1 && !admin.password_hash) {
+                admin.password = '';
+                admin.password_hash = 'c9b018966de06d7ac7a5aba21cd4f14b096aa0697ea97b3e6da73fcc5fb80d10';
                 changed = true;
             }
         });
@@ -248,6 +155,18 @@
             data.admins = sampleData.admins.slice();
             changed = true;
         }
+        if (!Array.isArray(data.students)) {
+            data.students = [];
+            changed = true;
+        }
+        if (!Array.isArray(data.staff)) {
+            data.staff = [];
+            changed = true;
+        }
+        if (!Array.isArray(data.dives)) {
+            data.dives = [];
+            changed = true;
+        }
         return changed;
     }
 
@@ -273,18 +192,25 @@
 
     function initStudentLogin() {
         const form = document.getElementById('studentLoginForm');
+        const registerForm = document.getElementById('studentRegisterForm');
         const message = document.getElementById('loginMessage');
+        const registerMessage = document.getElementById('registerMessage');
 
-        form.addEventListener('submit', function (event) {
+        form.addEventListener('submit', async function (event) {
             event.preventDefault();
             const data = getData();
             const formData = new FormData(form);
             const student = data.students.find(function (item) {
-                return item.student_no === formData.get('student_no') && item.password === formData.get('password');
+                return item.student_no === formData.get('student_no');
             });
 
-            if (!student) {
+            if (!student || !await passwordMatches(formData.get('password'), student)) {
                 showMessage(message, 'Öğrenci no veya şifre hatalı.');
+                return;
+            }
+
+            if (!isAccountApproved(student)) {
+                showMessage(message, 'Kaydınız henüz sistem yöneticisi tarafından onaylanmadı.');
                 return;
             }
 
@@ -293,22 +219,67 @@
             localStorage.removeItem(ACTIVE_ADMIN_KEY);
             window.location.href = 'student-dashboard.html';
         });
+
+        if (!registerForm) return;
+        registerForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const data = getData();
+            const formData = new FormData(registerForm);
+            const studentNo = readString(formData, 'student_no');
+            const email = readString(formData, 'email').toLowerCase();
+            const password = readString(formData, 'password');
+
+            if (!isIsteEmail(email)) {
+                showMessage(registerMessage, 'Sadece iste.edu.tr uzantılı e-posta kabul edilir.');
+                return;
+            }
+            if (data.students.some(function (item) { return item.student_no === studentNo || normalize(item.email) === normalize(email); })) {
+                showMessage(registerMessage, 'Bu öğrenci no veya e-posta zaten kayıtlı.');
+                return;
+            }
+
+            data.students.push({
+                id: nextId(data.students),
+                student_no: studentNo,
+                password: '',
+                password_hash: await digestPassword(password),
+                name: readString(formData, 'name'),
+                surname: readString(formData, 'surname'),
+                program: readString(formData, 'program'),
+                class_name: readString(formData, 'class_name'),
+                tc_no: '',
+                phone: readString(formData, 'phone'),
+                email: email,
+                approval_status: 'pending',
+                created_at: new Date().toISOString()
+            });
+            saveData(data);
+            registerForm.reset();
+            showMessage(registerMessage, 'Kaydınız alındı. Yönetici onayından sonra giriş yapabilirsiniz.', true);
+        });
     }
 
     function initStaffLogin() {
         const form = document.getElementById('staffLoginForm');
+        const registerForm = document.getElementById('staffRegisterForm');
         const message = document.getElementById('loginMessage');
+        const registerMessage = document.getElementById('registerMessage');
 
-        form.addEventListener('submit', function (event) {
+        form.addEventListener('submit', async function (event) {
             event.preventDefault();
             const data = getData();
             const formData = new FormData(form);
             const staff = data.staff.find(function (item) {
-                return item.staff_no === formData.get('staff_no') && item.password === formData.get('password');
+                return item.staff_no === formData.get('staff_no');
             });
 
-            if (!staff) {
+            if (!staff || !await passwordMatches(formData.get('password'), staff)) {
                 showMessage(message, 'Kurum no veya şifre hatalı.');
+                return;
+            }
+
+            if (!isAccountApproved(staff)) {
+                showMessage(message, 'Kaydınız henüz sistem yöneticisi tarafından onaylanmadı.');
                 return;
             }
 
@@ -317,21 +288,56 @@
             localStorage.removeItem(ACTIVE_ADMIN_KEY);
             window.location.href = 'staff-dashboard.html';
         });
+
+        if (!registerForm) return;
+        registerForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const data = getData();
+            const formData = new FormData(registerForm);
+            const staffNo = readString(formData, 'staff_no');
+            const email = readString(formData, 'email').toLowerCase();
+
+            if (!isIsteEmail(email)) {
+                showMessage(registerMessage, 'Sadece iste.edu.tr uzantılı e-posta kabul edilir.');
+                return;
+            }
+            if (data.staff.some(function (item) { return item.staff_no === staffNo || normalize(item.email) === normalize(email); })) {
+                showMessage(registerMessage, 'Bu kurum no veya e-posta zaten kayıtlı.');
+                return;
+            }
+
+            data.staff.push({
+                id: nextId(data.staff),
+                staff_no: staffNo,
+                password: '',
+                password_hash: await digestPassword(readString(formData, 'password')),
+                name: readString(formData, 'name'),
+                surname: readString(formData, 'surname'),
+                email: email,
+                role_name: 'staff',
+                display_role: 'Dalış Amiri',
+                approval_status: 'pending',
+                created_at: new Date().toISOString()
+            });
+            saveData(data);
+            registerForm.reset();
+            showMessage(registerMessage, 'Kaydınız alındı. Yönetici onayından sonra giriş yapabilirsiniz.', true);
+        });
     }
 
     function initAdminLogin() {
         const form = document.getElementById('adminLoginForm');
         const message = document.getElementById('loginMessage');
 
-        form.addEventListener('submit', function (event) {
+        form.addEventListener('submit', async function (event) {
             event.preventDefault();
             const data = getData();
             const formData = new FormData(form);
             const admin = data.admins.find(function (item) {
-                return item.admin_no === formData.get('admin_no') && item.password === formData.get('password');
+                return item.admin_no === formData.get('admin_no');
             });
 
-            if (!admin) {
+            if (!admin || !await passwordMatches(formData.get('password'), admin)) {
                 showMessage(message, 'Yönetici no veya şifre hatalı.');
                 return;
             }
@@ -382,7 +388,7 @@
         document.getElementById('entryStudentNo').value = student.student_no;
         document.getElementById('entryStudentName').value = fullName(student);
 
-        form.addEventListener('submit', function (event) {
+        form.addEventListener('submit', async function (event) {
             event.preventDefault();
             const currentData = getData();
             const currentStudent = getActiveStudent(currentData);
@@ -465,27 +471,36 @@
         const form = document.getElementById('adminStudentForm');
         const message = document.getElementById('adminStudentMessage');
 
-        form.addEventListener('submit', function (event) {
+        form.addEventListener('submit', async function (event) {
             event.preventDefault();
             const data = getData();
             const formData = new FormData(form);
             const studentNo = readString(formData, 'student_no');
+            const email = readString(formData, 'email').toLowerCase();
 
             if (data.students.some(function (student) { return student.student_no === studentNo; })) {
                 showMessage(message, 'Bu öğrenci no zaten kayıtlı.');
+                return;
+            }
+            if (!isIsteEmail(email)) {
+                showMessage(message, 'Sadece iste.edu.tr uzantılı e-posta kabul edilir.');
                 return;
             }
 
             data.students.push({
                 id: nextId(data.students),
                 student_no: studentNo,
-                password: readString(formData, 'password'),
+                password: '',
+                password_hash: await digestPassword(readString(formData, 'password')),
                 name: readString(formData, 'name'),
                 surname: readString(formData, 'surname'),
                 program: readString(formData, 'program'),
+                class_name: readString(formData, 'class_name'),
                 tc_no: readString(formData, 'tc_no'),
                 phone: readString(formData, 'phone'),
-                email: readString(formData, 'email')
+                email: email,
+                approval_status: 'approved',
+                approved_at: new Date().toISOString()
             });
 
             saveData(data);
@@ -499,25 +514,34 @@
         const form = document.getElementById('adminStaffForm');
         const message = document.getElementById('adminStaffMessage');
 
-        form.addEventListener('submit', function (event) {
+        form.addEventListener('submit', async function (event) {
             event.preventDefault();
             const data = getData();
             const formData = new FormData(form);
             const staffNo = readString(formData, 'staff_no');
+            const email = readString(formData, 'email').toLowerCase();
 
             if (data.staff.some(function (staff) { return staff.staff_no === staffNo; })) {
                 showMessage(message, 'Bu kurum no zaten kayıtlı.');
+                return;
+            }
+            if (!isIsteEmail(email)) {
+                showMessage(message, 'Sadece iste.edu.tr uzantılı e-posta kabul edilir.');
                 return;
             }
 
             data.staff.push({
                 id: nextId(data.staff),
                 staff_no: staffNo,
-                password: readString(formData, 'password'),
+                password: '',
+                password_hash: await digestPassword(readString(formData, 'password')),
                 name: readString(formData, 'name'),
                 surname: readString(formData, 'surname'),
+                email: email,
                 role_name: 'staff',
-                display_role: readString(formData, 'display_role')
+                display_role: readString(formData, 'display_role'),
+                approval_status: 'approved',
+                approved_at: new Date().toISOString()
             });
 
             saveData(data);
@@ -535,10 +559,38 @@
                 '<td>' + escapeHtml(student.program) + '</td>' +
                 '<td>' + escapeHtml(displayTcNo(student)) + '</td>' +
                 '<td>' + escapeHtml(student.email || '-') + '</td>' +
+                '<td>' + accountStatusBadge(student) + '</td>' +
+                '<td><div class="row-actions">' +
+                    (isAccountApproved(student) ? '' : '<button class="btn primary" type="button" data-approve-student="' + student.id + '">Onayla</button>') +
+                    '<button class="btn danger" type="button" data-delete-student="' + student.id + '">Çıkar</button>' +
+                '</div></td>' +
             '</tr>';
         }).join('');
 
-        document.getElementById('adminStudentRows').innerHTML = rows || '<tr><td class="empty-row" colspan="5">Öğrenci bulunmuyor.</td></tr>';
+        const tbody = document.getElementById('adminStudentRows');
+        tbody.innerHTML = rows || '<tr><td class="empty-row" colspan="7">Öğrenci bulunmuyor.</td></tr>';
+        tbody.querySelectorAll('[data-approve-student]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const currentData = getData();
+                const student = currentData.students.find(function (item) { return item.id === Number(button.dataset.approveStudent); });
+                if (!student) return;
+                student.approval_status = 'approved';
+                student.approved_at = new Date().toISOString();
+                saveData(currentData);
+                renderAdminDashboard(currentData);
+            });
+        });
+        tbody.querySelectorAll('[data-delete-student]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                if (!window.confirm('Bu öğrenciyi sistemden çıkarmak istiyor musunuz?')) return;
+                const currentData = getData();
+                const studentId = Number(button.dataset.deleteStudent);
+                currentData.students = currentData.students.filter(function (item) { return item.id !== studentId; });
+                currentData.dives = currentData.dives.filter(function (item) { return item.student_id !== studentId; });
+                saveData(currentData);
+                renderAdminDashboard(currentData);
+            });
+        });
     }
 
     function renderAdminStaff(data) {
@@ -547,10 +599,25 @@
                 '<td>' + escapeHtml(staff.staff_no) + '</td>' +
                 '<td>' + escapeHtml(fullName(staff)) + '</td>' +
                 '<td>' + escapeHtml(staff.display_role || 'Öğretim Elemanı / Dalış Amiri') + '</td>' +
+                '<td>' + escapeHtml(staff.email || '-') + '</td>' +
+                '<td>' + accountStatusBadge(staff) + '</td>' +
+                '<td>' + (isAccountApproved(staff) ? '' : '<button class="btn primary" type="button" data-approve-staff="' + staff.id + '">Onayla</button>') + '</td>' +
             '</tr>';
         }).join('');
 
-        document.getElementById('adminStaffRows').innerHTML = rows || '<tr><td class="empty-row" colspan="3">Staff kullanıcısı bulunmuyor.</td></tr>';
+        const tbody = document.getElementById('adminStaffRows');
+        tbody.innerHTML = rows || '<tr><td class="empty-row" colspan="6">Staff kullanıcısı bulunmuyor.</td></tr>';
+        tbody.querySelectorAll('[data-approve-staff]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const currentData = getData();
+                const staff = currentData.staff.find(function (item) { return item.id === Number(button.dataset.approveStaff); });
+                if (!staff) return;
+                staff.approval_status = 'approved';
+                staff.approved_at = new Date().toISOString();
+                saveData(currentData);
+                renderAdminDashboard(currentData);
+            });
+        });
     }
 
     function renderPendingApprovals(data, staff, pendingDives) {
@@ -989,6 +1056,10 @@
     }
 
     function getActiveStudent(data) {
+        if (!data.students.length) {
+            window.location.href = 'student-login.html';
+            throw new Error('No active student');
+        }
         const activeId = Number(localStorage.getItem(ACTIVE_STUDENT_KEY)) || data.students[0].id;
         const student = data.students.find(function (item) {
             return item.id === activeId;
@@ -998,6 +1069,10 @@
     }
 
     function getActiveStaff(data) {
+        if (!data.staff.length) {
+            window.location.href = 'staff-login.html';
+            throw new Error('No active staff');
+        }
         const activeId = Number(localStorage.getItem(ACTIVE_STAFF_KEY)) || data.staff[0].id;
         const staff = data.staff.find(function (item) {
             return item.id === activeId;
@@ -1023,6 +1098,36 @@
 
     function isApproved(dive) {
         return (dive.approval_status || 'approved') === 'approved';
+    }
+
+    function isAccountApproved(account) {
+        return account && (account.role_name === 'admin' || (account.approval_status || 'approved') === 'approved');
+    }
+
+    function isIsteEmail(email) {
+        return /^[^\s@]+@iste\.edu\.tr$/i.test(String(email || '').trim());
+    }
+
+    async function passwordMatches(password, account) {
+        if (account.password_hash) {
+            return await digestPassword(String(password || '')) === account.password_hash;
+        }
+
+        return account.password === String(password || '');
+    }
+
+    async function digestPassword(password) {
+        const bytes = new TextEncoder().encode('istedalis|' + password);
+        const digest = await crypto.subtle.digest('SHA-256', bytes);
+        return Array.from(new Uint8Array(digest)).map(function (byte) {
+            return byte.toString(16).padStart(2, '0');
+        }).join('');
+    }
+
+    function accountStatusBadge(account) {
+        return '<span class="status-badge ' + escapeHtml(account.approval_status || 'approved') + '">' +
+            escapeHtml(isAccountApproved(account) ? 'Onaylandı' : 'Onay bekliyor') +
+        '</span>';
     }
 
     function isPending(dive) {

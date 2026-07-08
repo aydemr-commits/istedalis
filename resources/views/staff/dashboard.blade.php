@@ -11,6 +11,67 @@
     @endif
 </div>
 
+@if($staff->isAdmin())
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h2 class="h5">Onay Bekleyen Kayitlar</h2>
+            <div class="row g-3">
+                <div class="col-lg-6">
+                    <h3 class="h6">Ogrenciler</h3>
+                    <div class="table-responsive">
+                        <table class="table table-sm align-middle">
+                            <thead><tr><th>Ogrenci no</th><th>Ad soyad</th><th>Program</th><th>E-posta</th><th></th></tr></thead>
+                            <tbody>
+                            @forelse($pendingStudents as $student)
+                                <tr>
+                                    <td>{{ $student->student_no }}</td>
+                                    <td>{{ $student->full_name }}</td>
+                                    <td>{{ $student->program }} / {{ $student->class_name }}</td>
+                                    <td>{{ $student->email }}</td>
+                                    <td class="text-end">
+                                        <form method="POST" action="{{ route('staff.students.approve', $student) }}">
+                                            @csrf
+                                            <button class="btn btn-sm btn-success">Onayla</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr><td colspan="5" class="text-muted">Onay bekleyen ogrenci yok.</td></tr>
+                            @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="h6">Dalis amirleri</h3>
+                    <div class="table-responsive">
+                        <table class="table table-sm align-middle">
+                            <thead><tr><th>Kurum no</th><th>Ad soyad</th><th>E-posta</th><th></th></tr></thead>
+                            <tbody>
+                            @forelse($pendingStaff as $staffMember)
+                                <tr>
+                                    <td>{{ $staffMember->staff_no }}</td>
+                                    <td>{{ $staffMember->full_name }}</td>
+                                    <td>{{ $staffMember->email }}</td>
+                                    <td class="text-end">
+                                        <form method="POST" action="{{ route('staff.staff.approve', $staffMember) }}">
+                                            @csrf
+                                            <button class="btn btn-sm btn-success">Onayla</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr><td colspan="4" class="text-muted">Onay bekleyen dalis amiri yok.</td></tr>
+                            @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
 <div class="row g-3 mb-4">
     <div class="col-md-4"><div class="card metric"><div class="card-body"><div class="text-muted">Toplam ogrenci</div><div class="fs-3 fw-bold">{{ $summary['student_count'] }}</div></div></div></div>
     <div class="col-md-4"><div class="card metric"><div class="card-body"><div class="text-muted">Toplam dalis kaydi</div><div class="fs-3 fw-bold">{{ $summary['dive_count'] }}</div></div></div></div>
@@ -48,7 +109,18 @@
                         <td>{{ $student->class_name }}</td>
                         <td>{{ $student->dives_count }}</td>
                         <td>{{ (int) $student->dives_sum_duration_minutes }} dk</td>
-                        <td class="text-end"><a class="btn btn-sm btn-outline-primary" href="{{ route('staff.students.report', $student) }}">Rapor al</a></td>
+                        <td class="text-end">
+                            <div class="d-inline-flex gap-2">
+                                <a class="btn btn-sm btn-outline-primary" href="{{ route('staff.students.report', $student) }}">Rapor al</a>
+                                @if($staff->isAdmin())
+                                    <form method="POST" action="{{ route('staff.students.destroy', $student) }}" onsubmit="return confirm('Bu ogrenciyi sistemden cikarmak istiyor musunuz?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-outline-danger">Cikar</button>
+                                    </form>
+                                @endif
+                            </div>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

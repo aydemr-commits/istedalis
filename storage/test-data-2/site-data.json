@@ -1,0 +1,17 @@
+{
+  "students": [],
+  "staff": [],
+  "admins": [
+    {
+      "id": 1,
+      "admin_no": "3001",
+      "password": "",
+      "password_hash": "c9b018966de06d7ac7a5aba21cd4f14b096aa0697ea97b3e6da73fcc5fb80d10",
+      "name": "Sistem",
+      "surname": "Yonetici",
+      "role_name": "admin",
+      "approval_status": "approved"
+    }
+  ],
+  "dives": []
+}

@@ -11,9 +11,13 @@ Route::get('/', [AuthController::class, 'home'])->name('home');
 
 Route::get('/student/login', [AuthController::class, 'studentLogin'])->name('student.login');
 Route::post('/student/login', [AuthController::class, 'authenticateStudent'])->name('student.login.post');
+Route::get('/student/register', [AuthController::class, 'studentRegister'])->name('student.register');
+Route::post('/student/register', [AuthController::class, 'registerStudent'])->name('student.register.post');
 
 Route::get('/staff/login', [AuthController::class, 'staffLogin'])->name('staff.login');
 Route::post('/staff/login', [AuthController::class, 'authenticateStaff'])->name('staff.login.post');
+Route::get('/staff/register', [AuthController::class, 'staffRegister'])->name('staff.register');
+Route::post('/staff/register', [AuthController::class, 'registerStaff'])->name('staff.register.post');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/internal/backups/run', [BackupController::class, 'runAutomatic'])->name('internal.backups.run');
@@ -32,6 +36,9 @@ Route::middleware('staff')->prefix('staff')->name('staff.')->group(function () {
     Route::post('/reports/student', [ReportController::class, 'selected'])->name('reports.student');
 
     Route::middleware('admin')->group(function () {
+        Route::post('/students/{student}/approve', [StaffDashboardController::class, 'approveStudent'])->name('students.approve');
+        Route::delete('/students/{student}', [StaffDashboardController::class, 'destroyStudent'])->name('students.destroy');
+        Route::post('/staff/{staffMember}/approve', [StaffDashboardController::class, 'approveStaff'])->name('staff.approve');
         Route::get('/backup', [BackupController::class, 'index'])->name('backup');
         Route::post('/backup', [BackupController::class, 'create'])->name('backup.create');
         Route::get('/backup/json', [BackupController::class, 'json'])->name('backup.json');

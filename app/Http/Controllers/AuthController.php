@@ -24,9 +24,55 @@ class AuthController extends Controller
         return view('auth.student-login');
     }
 
+    public function studentRegister(): View
+    {
+        return view('auth.student-register');
+    }
+
     public function staffLogin(): View
     {
         return view('auth.staff-login');
+    }
+
+    public function staffRegister(): View
+    {
+        return view('auth.staff-register');
+    }
+
+    public function registerStudent(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'student_no' => ['required', 'string', 'max:50', 'unique:students,student_no'],
+            'password' => ['required', 'string', 'min:6', 'max:255', 'confirmed'],
+            'name' => ['required', 'string', 'max:255'],
+            'surname' => ['required', 'string', 'max:255'],
+            'program' => ['required', 'in:Su Altı Teknolojisi,Sualtı Kaynak Teknolojisi'],
+            'class_name' => ['required', 'string', 'max:50'],
+            'phone' => ['nullable', 'string', 'max:50'],
+            'email' => ['required', 'email', 'max:255', 'regex:/^[^@\s]+@iste\.edu\.tr$/i', 'unique:students,email'],
+        ]);
+
+        $data['approval_status'] = 'pending';
+        Student::create($data);
+
+        return redirect()->route('student.login')->with('status', 'Kaydiniz alindi. Sistem yoneticisi onayladiktan sonra giris yapabilirsiniz.');
+    }
+
+    public function registerStaff(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'staff_no' => ['required', 'string', 'max:50', 'unique:staff,staff_no'],
+            'password' => ['required', 'string', 'min:6', 'max:255', 'confirmed'],
+            'name' => ['required', 'string', 'max:255'],
+            'surname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'regex:/^[^@\s]+@iste\.edu\.tr$/i', 'unique:staff,email'],
+        ]);
+
+        $data['role_name'] = 'staff';
+        $data['approval_status'] = 'pending';
+        Staff::create($data);
+
+        return redirect()->route('staff.login')->with('status', 'Kaydiniz alindi. Sistem yoneticisi onayladiktan sonra giris yapabilirsiniz.');
     }
 
     public function authenticateStudent(Request $request): RedirectResponse
@@ -45,6 +91,12 @@ class AuthController extends Controller
 
             throw ValidationException::withMessages([
                 'student_no' => 'Ogrenci no veya sifre hatali.',
+            ]);
+        }
+
+        if (! $student->isApproved()) {
+            throw ValidationException::withMessages([
+                'student_no' => 'Kaydiniz henuz sistem yoneticisi tarafindan onaylanmadi.',
             ]);
         }
 
@@ -73,6 +125,12 @@ class AuthController extends Controller
 
             throw ValidationException::withMessages([
                 'staff_no' => 'Kurum no veya sifre hatali.',
+            ]);
+        }
+
+        if (! $staff->isApproved()) {
+            throw ValidationException::withMessages([
+                'staff_no' => 'Kaydiniz henuz sistem yoneticisi tarafindan onaylanmadi.',
             ]);
         }
 

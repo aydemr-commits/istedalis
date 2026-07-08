@@ -18,7 +18,11 @@ class Staff extends Model
         'password',
         'name',
         'surname',
+        'email',
         'role_name',
+        'approval_status',
+        'approved_at',
+        'approved_by_staff_id',
     ];
 
     protected $hidden = ['password'];
@@ -41,5 +45,10 @@ class Staff extends Model
     public function isAdmin(): bool
     {
         return $this->role_name === 'admin';
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->isAdmin() || $this->approval_status === 'approved';
     }
 }

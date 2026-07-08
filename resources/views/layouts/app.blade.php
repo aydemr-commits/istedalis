@@ -9,6 +9,8 @@
         :root { --iste-navy:#10284a; --iste-orange:#f28c28; --iste-gray:#f4f6f8; }
         body { background: var(--iste-gray); color: #1f2937; }
         .topbar { background: var(--iste-navy); color: #fff; border-bottom: 4px solid var(--iste-orange); }
+        .brand-wrap { display: flex; align-items: center; gap: 14px; min-width: 0; }
+        .brand-mark { width: 64px; height: 64px; object-fit: contain; background: #fff; border-radius: 50%; padding: 4px; flex: 0 0 auto; }
         .brand-title { line-height: 1.25; }
         .btn-iste { background: var(--iste-orange); border-color: var(--iste-orange); color: #111827; font-weight: 600; }
         .btn-iste:hover { background: #d97706; border-color: #d97706; color: #111827; }
@@ -21,10 +23,13 @@
 <body>
     <header class="topbar py-3">
         <div class="container d-flex flex-wrap justify-content-between gap-3 align-items-center">
-            <div class="brand-title">
-                <div class="fw-bold fs-5">Iskenderun Teknik Universitesi</div>
-                <div>Denizcilik Teknolojileri MYO</div>
-                <div class="small text-white-50">istedalis</div>
+            <div class="brand-wrap">
+                <img class="brand-mark" src="{{ asset('assets/iste-amblem.png') }}" alt="Iskenderun Teknik Universitesi amblemi">
+                <div class="brand-title">
+                    <div class="fw-bold fs-5">Iskenderun Teknik Universitesi</div>
+                    <div>Denizcilik Teknolojileri MYO</div>
+                    <div class="small text-white-50">istedalis</div>
+                </div>
             </div>
             @if(session()->has('student_id') || session()->has('staff_id'))
                 <form method="POST" action="{{ route('logout') }}">

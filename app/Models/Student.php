@@ -20,6 +20,9 @@ class Student extends Model
         'class_name',
         'phone',
         'email',
+        'approval_status',
+        'approved_at',
+        'approved_by_staff_id',
     ];
 
     protected $hidden = ['password'];
@@ -37,5 +40,10 @@ class Student extends Model
     public function getFullNameAttribute(): string
     {
         return trim($this->name.' '.$this->surname);
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->approval_status === 'approved';
     }
 }

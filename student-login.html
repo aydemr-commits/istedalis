@@ -36,6 +36,36 @@
                 <p id="loginMessage" class="form-message" aria-live="polite"></p>
             </form>
         </section>
+        <section class="panel auth-panel">
+            <p class="eyebrow">Yeni kayit</p>
+            <h1>Ogrenci kaydi</h1>
+            <form id="studentRegisterForm" class="form-grid">
+                <label><span>Ogrenci no</span><input name="student_no" required></label>
+                <label><span>iste.edu.tr e-posta</span><input name="email" type="email" required placeholder="ogrenci@iste.edu.tr"></label>
+                <label><span>Ad</span><input name="name" required></label>
+                <label><span>Soyad</span><input name="surname" required></label>
+                <label>
+                    <span>Program</span>
+                    <select name="program" required>
+                        <option value="">Program secin</option>
+                        <option>Su Altı Teknolojisi</option>
+                        <option>Sualtı Kaynak Teknolojisi</option>
+                    </select>
+                </label>
+                <label>
+                    <span>Sinif</span>
+                    <select name="class_name" required>
+                        <option value="">Sinif secin</option>
+                        <option>1. Sinif</option>
+                        <option>2. Sinif</option>
+                    </select>
+                </label>
+                <label><span>Telefon</span><input name="phone"></label>
+                <label><span>Sifre</span><input name="password" type="password" minlength="6" required></label>
+                <button class="btn primary full" type="submit">Kayit Olustur</button>
+                <p id="registerMessage" class="form-message" aria-live="polite"></p>
+            </form>
+        </section>
     </main>
 
     <script src="app.js"></script>
