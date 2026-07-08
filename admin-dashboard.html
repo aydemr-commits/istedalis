@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Yönetici Paneli</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="admin-dashboard">
+    <header class="topbar">
+        <div class="brand">
+            <img class="brand-mark" src="assets/iste-amblem.png" alt="İskenderun Teknik Üniversitesi amblemi">
+            <div>
+                <strong>İskenderun Teknik Üniversitesi</strong>
+                <span>Denizcilik Teknolojileri MYO</span>
+                <small>Dalış Kayıt Sistemi</small>
+            </div>
+        </div>
+        <nav class="top-actions">
+            <a href="#newStudent">Öğrenci ekle</a>
+            <a href="#newStaff">Öğretim elemanı ekle</a>
+            <a href="index.html" data-logout>Çıkış</a>
+        </nav>
+    </header>
+
+    <main class="shell">
+        <section class="page-heading">
+            <div>
+                <p class="eyebrow">Yönetici paneli</p>
+                <h1>Kullanıcı yönetimi</h1>
+                <p id="adminIdentity" class="muted"></p>
+            </div>
+        </section>
+
+        <section class="metric-grid">
+            <article class="metric"><span>Toplam öğrenci</span><strong id="adminStudentCount">0</strong></article>
+            <article class="metric"><span>Toplam öğretim elemanı / dalış amiri</span><strong id="adminStaffCount">0</strong></article>
+            <article class="metric"><span>Toplam yönetici</span><strong id="adminAdminCount">0</strong></article>
+            <article class="metric"><span>Toplam dalış kaydı</span><strong id="adminDiveCount">0</strong></article>
+        </section>
+
+        <section class="panel" id="newStudent">
+            <div class="section-title">
+                <h2>Yeni öğrenci ekle</h2>
+                <span class="muted">Eklenen öğrenci öğrenci girişinden kullanılır</span>
+            </div>
+            <form id="adminStudentForm" class="form-grid wide">
+                <label>
+                    <span>Öğrenci no</span>
+                    <input name="student_no" required placeholder="2024003">
+                </label>
+                <label>
+                    <span>Şifre</span>
+                    <input name="password" required>
+                </label>
+                <label>
+                    <span>Ad</span>
+                    <input name="name" required placeholder="Ayşe">
+                </label>
+                <label>
+                    <span>Soyad</span>
+                    <input name="surname" required placeholder="Kaya">
+                </label>
+                <label>
+                    <span>Program</span>
+                    <select name="program" required>
+                        <option>Sualtı Teknolojisi</option>
+                        <option>Deniz ve Liman İşletmeciliği</option>
+                        <option>Gemi Makineleri İşletme</option>
+                        <option>Deniz Ulaştırma ve İşletme</option>
+                    </select>
+                </label>
+                <label>
+                    <span>TC no</span>
+                    <input name="tc_no" required inputmode="numeric" maxlength="11" placeholder="10000000000">
+                </label>
+                <label>
+                    <span>Telefon</span>
+                    <input name="phone" placeholder="0326 000 00 03">
+                </label>
+                <label>
+                    <span>E-posta</span>
+                    <input name="email" type="email" placeholder="ogrenci@iste.edu.tr">
+                </label>
+                <div class="form-actions span-2">
+                    <button class="btn primary" type="submit">Öğrenci Ekle</button>
+                </div>
+                <p id="adminStudentMessage" class="form-message span-2" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <section class="panel" id="newStaff">
+            <div class="section-title">
+                <h2>Yeni öğretim elemanı / dalış amiri ekle</h2>
+                <span class="muted">Eklenen kullanıcı staff girişinden kullanılır</span>
+            </div>
+            <form id="adminStaffForm" class="form-grid wide">
+                <label>
+                    <span>Kurum no</span>
+                    <input name="staff_no" required placeholder="3002">
+                </label>
+                <label>
+                    <span>Şifre</span>
+                    <input name="password" required>
+                </label>
+                <label>
+                    <span>Ad</span>
+                    <input name="name" required placeholder="Deniz">
+                </label>
+                <label>
+                    <span>Soyad</span>
+                    <input name="surname" required placeholder="Yıldız">
+                </label>
+                <label class="span-2">
+                    <span>Ekran rolü</span>
+                    <select name="display_role" required>
+                        <option>Öğretim Elemanı</option>
+                        <option>Dalış Amiri</option>
+                        <option>Öğretim Elemanı / Dalış Amiri</option>
+                    </select>
+                </label>
+                <div class="form-actions span-2">
+                    <button class="btn secondary" type="submit">Öğretim Elemanı Ekle</button>
+                </div>
+                <p id="adminStaffMessage" class="form-message span-2" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <section class="panel">
+            <div class="section-title">
+                <h2>Öğrenciler</h2>
+                <span class="muted">Sistemde kayıtlı öğrenciler</span>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Öğrenci no</th>
+                            <th>Ad soyad</th>
+                            <th>Program</th>
+                            <th>TC no</th>
+                            <th>E-posta</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminStudentRows"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-title">
+                <h2>Öğretim elemanı / dalış amiri kullanıcıları</h2>
+                <span class="muted">Sistemde kayıtlı staff kullanıcıları</span>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Kurum no</th>
+                            <th>Ad soyad</th>
+                            <th>Rol</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminStaffRows"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "istedalis",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ISTE DEMYO dalis kayit sistemi",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

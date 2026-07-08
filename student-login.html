@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Öğrenci Girişi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="student-login">
+    <header class="topbar">
+        <div class="brand">
+            <img class="brand-mark" src="assets/iste-amblem.png" alt="İskenderun Teknik Üniversitesi amblemi">
+            <div>
+                <strong>İskenderun Teknik Üniversitesi</strong>
+                <span>Denizcilik Teknolojileri MYO</span>
+                <small>Dalış Kayıt Sistemi</small>
+            </div>
+        </div>
+        <nav class="top-actions"><a href="index.html">Ana sayfa</a></nav>
+    </header>
+
+    <main class="shell narrow">
+        <section class="panel auth-panel">
+            <p class="eyebrow">Öğrenci</p>
+            <h1>Öğrenci girişi</h1>
+            <form id="studentLoginForm" class="form-grid">
+                <label>
+                    <span>Öğrenci no</span>
+                    <input name="student_no" autocomplete="username" required placeholder="2024001">
+                </label>
+                <label>
+                    <span>Şifre</span>
+                    <input name="password" type="password" autocomplete="current-password" required>
+                </label>
+                <button class="btn primary full" type="submit">Giriş Yap</button>
+                <p id="loginMessage" class="form-message" aria-live="polite"></p>
+            </form>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

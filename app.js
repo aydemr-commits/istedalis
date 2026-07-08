@@ -13,7 +13,7 @@
             {
                 id: 1,
                 student_no: '2024001',
-                password: '1234',
+                password: '',
                 name: 'Ahmet',
                 surname: 'Yılmaz',
                 program: 'Sualtı Teknolojisi',
@@ -24,7 +24,7 @@
             {
                 id: 2,
                 student_no: '2024002',
-                password: '1234',
+                password: '',
                 name: 'Mehmet',
                 surname: 'Demir',
                 program: 'Sualtı Teknolojisi',
@@ -37,7 +37,7 @@
             {
                 id: 1,
                 staff_no: '1001',
-                password: 'admin123',
+                password: '',
                 name: 'Öğretim',
                 surname: 'Elemanı',
                 role_name: 'staff',
@@ -46,7 +46,7 @@
             {
                 id: 2,
                 staff_no: '2001',
-                password: 'dalis123',
+                password: '',
                 name: 'Dalış',
                 surname: 'Amiri',
                 role_name: 'staff',
@@ -57,7 +57,7 @@
             {
                 id: 1,
                 admin_no: '3001',
-                password: 'yonetici123',
+                password: '',
                 name: 'Sistem',
                 surname: 'Yöneticisi',
                 role_name: 'admin'
@@ -196,6 +196,24 @@
 
     function normalizeData(data) {
         let changed = false;
+        data.students.forEach(function (student) {
+            if ((student.id === 1 || student.id === 2) && student.password) {
+                student.password = '';
+                changed = true;
+            }
+        });
+        data.staff.forEach(function (staff) {
+            if ((staff.id === 1 || staff.id === 2) && staff.password) {
+                staff.password = '';
+                changed = true;
+            }
+        });
+        data.admins.forEach(function (admin) {
+            if (admin.id === 1 && admin.password) {
+                admin.password = '';
+                changed = true;
+            }
+        });
         data.students.forEach(function (student) {
             if (!student.tc_no) {
                 student.tc_no = '';
