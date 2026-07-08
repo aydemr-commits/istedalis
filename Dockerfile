@@ -55,7 +55,7 @@ RUN { \
         echo 'php_admin_value[error_log] = /proc/self/fd/2'; \
     } >> /usr/local/etc/php-fpm.d/www.conf
 
-RUN chmod +x /var/www/html/docker/start.sh /var/www/html/docker/prepare-laravel.sh /var/www/html/docker/run-backup-cron.sh \
+RUN chmod +x /var/www/html/docker/start.sh /var/www/html/docker/run-backup-cron.sh \
     && mkdir -p /run/nginx /var/www/html/bootstrap/cache \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 

@@ -5,7 +5,7 @@ services:
     region: frankfurt
     plan: starter
     healthCheckPath: /up
-    preDeployCommand: . ./docker/prepare-laravel.sh && php artisan migrate --force && php artisan admin:ensure --force
+    preDeployCommand: mkdir -p storage/app/private/backups storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs bootstrap/cache && php artisan migrate --force && php artisan admin:ensure --force
     autoDeployTrigger: commit
     disk:
       name: istedalis-storage
