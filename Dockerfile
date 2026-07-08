@@ -6,6 +6,8 @@ COPY composer.json ./
 RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --prefer-dist --no-interaction --no-progress --no-scripts --ignore-platform-req=ext-pcntl
 
 COPY . .
+RUN mkdir -p bootstrap/cache storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs \
+    && chmod -R 775 bootstrap/cache storage
 RUN COMPOSER_ALLOW_SUPERUSER=1 composer dump-autoload --optimize --no-interaction
 
 FROM php:8.3-fpm-alpine
