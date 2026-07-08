@@ -19,13 +19,14 @@ RUN apk add --no-cache \
         curl \
         freetype-dev \
         icu-dev \
-        jpeg-dev \
+        libjpeg-turbo-dev \
         libpng-dev \
         libxml2-dev \
         libzip-dev \
         nginx \
         oniguruma-dev \
         postgresql-dev \
+    && apk add --no-cache --virtual .php-build-deps $PHPIZE_DEPS \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         bcmath \
@@ -39,7 +40,8 @@ RUN apk add --no-cache \
         xml \
         xmlreader \
         xmlwriter \
-        zip
+        zip \
+    && apk del .php-build-deps
 
 COPY --from=vendor /app /var/www/html
 COPY docker/nginx.conf /etc/nginx/http.d/default.conf
