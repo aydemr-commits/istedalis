@@ -11,16 +11,9 @@ mkdir -p \
 
 chown -R www-data:www-data storage bootstrap/cache
 
-if [ -z "${APP_URL:-}" ] && [ -n "${RENDER_EXTERNAL_URL:-}" ]; then
-    export APP_URL="${RENDER_EXTERNAL_URL}"
-fi
+. ./docker/prepare-laravel.sh
 
 sed -i "s/listen 10000;/listen ${PORT:-10000};/" /etc/nginx/http.d/default.conf
-
-if [ -z "${APP_KEY:-}" ]; then
-    export APP_KEY="$(php artisan key:generate --show --no-ansi)"
-    echo "APP_KEY was not set; generated a runtime key for this container."
-fi
 
 php artisan optimize:clear || true
 php artisan config:cache
