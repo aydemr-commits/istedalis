@@ -5,6 +5,7 @@
   "description": "ISTE DEMYO dalis kayit sistemi",
   "type": "module",
   "scripts": {
+    "check:files": "node scripts/check-static-files.js",
     "start": "node server.js"
   },
   "engines": {
