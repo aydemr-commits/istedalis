@@ -10,7 +10,7 @@ RUN mkdir -p bootstrap/cache storage/framework/cache/data storage/framework/sess
     && chmod -R 775 bootstrap/cache storage
 RUN COMPOSER_ALLOW_SUPERUSER=1 composer dump-autoload --optimize --no-interaction
 
-FROM php:8.3-fpm-alpine
+FROM php:8.4-fpm-alpine
 
 WORKDIR /var/www/html
 
